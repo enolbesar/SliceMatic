@@ -78,22 +78,22 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Pizza> createPizzaList() {
         List<Pizza> pizzas = new ArrayList<>();
-        pizzas.add(new Pizza("Margherita"       , "PKR 700"));
-        pizzas.add(new Pizza("Pepperoni"        , "PKR 1100"));
-        pizzas.add(new Pizza("Hawaiian"         , "PKR 1200"));
-        pizzas.add(new Pizza("BBQ Chicken"      , "PKR 1300"));
-        pizzas.add(new Pizza("Supreme"          , "PKR 1400"));
-        pizzas.add(new Pizza("Veggie Delight"   , "PKR 1200"));
-        pizzas.add(new Pizza("Meat Lovers"      , "PKR 1100"));
-        pizzas.add(new Pizza("Four Cheese"      , "PKR 1000"));
-        pizzas.add(new Pizza("Buffalo Chicken"  , "PKR 1300"));
-        pizzas.add(new Pizza("Mushroom"         , "PKR 1200"));
-        pizzas.add(new Pizza("Mediterranean"    , "PKR 1100"));
-        pizzas.add(new Pizza("Chicken Fajita"   , "PKR 900"));
-        pizzas.add(new Pizza("Olive & Tomato"   , "PKR 700"));
-        pizzas.add(new Pizza("Tandoori"         , "PKR 1300"));
-        pizzas.add(new Pizza("Extravaganza"     , "PKR 1800"));
-        pizzas.add(new Pizza("Hot & Spicy"      , "PKR 800"));
+        pizzas.add(new Pizza("Margherita"       , "Rp 700"));
+        pizzas.add(new Pizza("Pepperoni"        , "Rp 1100"));
+        pizzas.add(new Pizza("Hawaiian"         , "Rp 1200"));
+        pizzas.add(new Pizza("BBQ Chicken"      , "Rp 1300"));
+        pizzas.add(new Pizza("Supreme"          , "Rp 1400"));
+        pizzas.add(new Pizza("Veggie Delight"   , "Rp 1200"));
+        pizzas.add(new Pizza("Meat Lovers"      , "Rp 1100"));
+        pizzas.add(new Pizza("Four Cheese"      , "Rp 1000"));
+        pizzas.add(new Pizza("Buffalo Chicken"  , "Rp 1300"));
+        pizzas.add(new Pizza("Mushroom"         , "Rp 1200"));
+        pizzas.add(new Pizza("Mediterranean"    , "Rp 1100"));
+        pizzas.add(new Pizza("Chicken Fajita"   , "Rp 900"));
+        pizzas.add(new Pizza("Olive & Tomato"   , "Rp 700"));
+        pizzas.add(new Pizza("Tandoori"         , "Rp 1300"));
+        pizzas.add(new Pizza("Extravaganza"     , "Rp 1800"));
+        pizzas.add(new Pizza("Hot & Spicy"      , "Rp 800"));
         return pizzas;
     }
 
