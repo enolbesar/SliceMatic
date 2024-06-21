@@ -71,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String orderDetails =   "\nOrder #000" + orderId + "\n" +
                         "\n" + customerName +
                         "\n" + customerAddress +
-                        "\nPKR " + totalCost +
+                        "\nRp " + totalCost +
                         "\nDate/Time: " + time + "\n";
                 orders.add(orderDetails);
             } while (cursor.moveToNext());

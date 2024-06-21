@@ -8,4 +8,6 @@
     <string name="your_order">Your Order:</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="order_history">Order History</string>
+    <string name="placeholder_description">This is a delicious pizza with fresh ingredients and a great taste.</string>
+    <string name="pizza_image" />
 </resources>

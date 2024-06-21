@@ -36,6 +36,7 @@
         android:paddingLeft="10dp"
         android:layout_marginBottom="10dp">
 
+        <!-- activity_main.xml -->
         <Button
             android:id="@+id/cartButton"
             android:layout_width="0dp"
@@ -47,7 +48,8 @@
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
             android:text="@string/cart"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/historyButton"
@@ -60,7 +62,10 @@
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
             android:text="@string/history"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+
 
     </LinearLayout>
 

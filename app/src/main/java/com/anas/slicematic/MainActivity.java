@@ -2,19 +2,16 @@ package com.anas.slicematic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PizzaAdapter.PizzaClickListener {
 
     private static final int REQUEST_CART_ACTIVITY = 1;
     private List<Pizza> pizzaList;
@@ -26,25 +23,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Window window = MainActivity.this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryYellow));
-        window.setNavigationBarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryYellow));
+
         RecyclerView pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
         pizzaList = createPizzaList();
-        pizzaAdapter = new PizzaAdapter(pizzaList, new PizzaAdapter.PizzaClickListener() {
-            @Override
-            public void onPlusClick(int position) {
-                addPizzaToCart(position);
-            }
-
-            @Override
-            public void onMinusClick(int position) {
-                removePizzaFromCart(position);
-            }
-        });
-
+        pizzaAdapter = new PizzaAdapter(pizzaList, this);
         pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         pizzaRecyclerView.setAdapter(pizzaAdapter);
 
@@ -78,59 +60,23 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Pizza> createPizzaList() {
         List<Pizza> pizzas = new ArrayList<>();
-        pizzas.add(new Pizza("Margherita"       , "Rp 700"));
-        pizzas.add(new Pizza("Pepperoni"        , "Rp 1100"));
-        pizzas.add(new Pizza("Hawaiian"         , "Rp 1200"));
-        pizzas.add(new Pizza("BBQ Chicken"      , "Rp 1300"));
-        pizzas.add(new Pizza("Supreme"          , "Rp 1400"));
-        pizzas.add(new Pizza("Veggie Delight"   , "Rp 1200"));
-        pizzas.add(new Pizza("Meat Lovers"      , "Rp 1100"));
-        pizzas.add(new Pizza("Four Cheese"      , "Rp 1000"));
-        pizzas.add(new Pizza("Buffalo Chicken"  , "Rp 1300"));
-        pizzas.add(new Pizza("Mushroom"         , "Rp 1200"));
-        pizzas.add(new Pizza("Mediterranean"    , "Rp 1100"));
-        pizzas.add(new Pizza("Chicken Fajita"   , "Rp 900"));
-        pizzas.add(new Pizza("Olive & Tomato"   , "Rp 700"));
-        pizzas.add(new Pizza("Tandoori"         , "Rp 1300"));
-        pizzas.add(new Pizza("Extravaganza"     , "Rp 1800"));
-        pizzas.add(new Pizza("Hot & Spicy"      , "Rp 800"));
+        pizzas.add(new Pizza("Margherita", "Rp 75000", R.drawable.margherita));
+        pizzas.add(new Pizza("Pepperoni", "Rp 120000", R.drawable.pepperoni));
+        pizzas.add(new Pizza("Hawaiian", "Rp 130000", R.drawable.hawaiian));
+        pizzas.add(new Pizza("BBQ Chicken", "Rp 140000", R.drawable.bbq_chicken));
+        pizzas.add(new Pizza("Supreme", "Rp 150000", R.drawable.supreme));
+        pizzas.add(new Pizza("Veggie Delight", "Rp 130000", R.drawable.veggie_delight));
+        pizzas.add(new Pizza("Meat Lovers", "Rp 120000", R.drawable.meat_lovers));
+        pizzas.add(new Pizza("Four Cheese", "Rp 110000", R.drawable.four_cheese));
+        pizzas.add(new Pizza("Buffalo Chicken", "Rp 140000", R.drawable.buffalo_chicken));
+        pizzas.add(new Pizza("Mushroom", "Rp 130000", R.drawable.mushroom));
+        pizzas.add(new Pizza("Mediterranean", "Rp 120000", R.drawable.mediterranean));
+        pizzas.add(new Pizza("Chicken Fajita", "Rp 100000", R.drawable.chicken_fajita));
+        pizzas.add(new Pizza("Olive & Tomato", "Rp 75000", R.drawable.olive_tomato));
+        pizzas.add(new Pizza("Tandoori", "Rp 140000", R.drawable.tandoori));
+        pizzas.add(new Pizza("Extravaganza", "Rp 190000", R.drawable.extravaganza));
+        pizzas.add(new Pizza("Hot & Spicy", "Rp 85000", R.drawable.hot_spicy));
         return pizzas;
-    }
-
-    private void addPizzaToCart(int position) {
-        Pizza pizza = pizzaList.get(position);
-        int quantity = pizza.getQuantity();
-        if (quantity < 10) {
-            pizzaCount++;
-            quantity++;
-            pizza.setQuantity(quantity);
-            pizzaAdapter.notifyDataSetChanged();
-        } else {
-            Toast.makeText(this, "Maximum pizza limit reached", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void removePizzaFromCart(int position) {
-        Pizza pizza = pizzaList.get(position);
-        int quantity = pizza.getQuantity();
-        if (quantity > 0) {
-            pizzaCount--;
-            quantity--;
-            pizza.setQuantity(quantity);
-            pizzaAdapter.notifyDataSetChanged();
-        } else {
-            Toast.makeText(this, "Why?", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private double calculateTotal(List<Pizza> pizzas) {
-        double total = 0;
-        for (Pizza pizza : pizzas) {
-            int quantity = pizza.getQuantity();
-            double price = Double.parseDouble(pizza.getPrice().replaceAll("[^\\d.]+", ""));
-            total += (quantity * price);
-        }
-        return total;
     }
 
 
@@ -141,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CART_ACTIVITY);
     }
 
-    //Sets the Quantities of pizzas back to 0 once we confirm the order
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -160,6 +105,58 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(intent);
         }
+    }
 
+    private double calculateTotal(List<Pizza> pizzas) {
+        double total = 0;
+        for (Pizza pizza : pizzas) {
+            int quantity = pizza.getQuantity();
+            double price = Double.parseDouble(pizza.getPrice().replaceAll("[^\\d.]+", ""));
+            total += (quantity * price);
+        }
+        return total;
+    }
+
+    @Override
+    public void onPlusClick(int position) {
+        addPizzaToCart(position);
+    }
+
+    @Override
+    public void onMinusClick(int position) {
+        removePizzaFromCart(position);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Pizza pizza = pizzaList.get(position);
+        MenuDetailDialog dialog = MenuDetailDialog.newInstance(pizza);
+        dialog.show(getSupportFragmentManager(), "menu_detail_dialog");
+    }
+
+    private void addPizzaToCart(int position) {
+        Pizza pizza = pizzaList.get(position);
+        int quantity = pizza.getQuantity();
+        if (quantity < 10) {
+            pizzaCount++;
+            quantity++;
+            pizza.setQuantity(quantity);
+            pizzaAdapter.notifyItemChanged(position);
+        } else {
+            Toast.makeText(this, "Maximum pizza limit reached", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removePizzaFromCart(int position) {
+        Pizza pizza = pizzaList.get(position);
+        int quantity = pizza.getQuantity();
+        if (quantity > 0) {
+            pizzaCount--;
+            quantity--;
+            pizza.setQuantity(quantity);
+            pizzaAdapter.notifyItemChanged(position);
+        } else {
+            Toast.makeText(this, "Cannot remove more pizzas", Toast.LENGTH_SHORT).show();
+        }
     }
 }

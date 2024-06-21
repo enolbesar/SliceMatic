@@ -6,17 +6,21 @@ import android.os.Parcelable;
 public class Pizza implements Parcelable {
     private final String name;
     private final String price;
+    private final int image; // tambahkan atribut untuk gambar
+
     private int quantity;
 
-    public Pizza(String name, String price) {
+    public Pizza(String name, String price, int image) {
         this.name = name;
         this.price = price;
+        this.image = image;
         this.quantity = 0;
     }
 
     protected Pizza(Parcel in) {
         name = in.readString();
         price = in.readString();
+        image = in.readInt();
         quantity = in.readInt();
     }
 
@@ -40,6 +44,10 @@ public class Pizza implements Parcelable {
         return price;
     }
 
+    public int getImage() {
+        return image;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -57,6 +65,8 @@ public class Pizza implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(price);
+        dest.writeInt(image);
         dest.writeInt(quantity);
     }
 }
+

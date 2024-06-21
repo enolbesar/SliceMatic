@@ -36,10 +36,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/quantityLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="visible"> <!-- Set default visibility to visible -->
 
         <ImageView
             android:id="@+id/minusImageView"

@@ -9,6 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
 
     private final List<Pizza> pizzaList;
@@ -17,6 +26,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     public interface PizzaClickListener {
         void onPlusClick(int position);
         void onMinusClick(int position);
+        void onItemClick(int position);
     }
 
     public PizzaAdapter(List<Pizza> pizzaList, PizzaClickListener pizzaClickListener) {
@@ -35,23 +45,21 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
         Pizza pizza = pizzaList.get(position);
 
-        holder.pizzaImageView.setImageResource(R.drawable.pizza_item);
+        holder.pizzaImageView.setImageResource(pizza.getImage());
         holder.nameTextView.setText(pizza.getName());
         holder.priceTextView.setText(pizza.getPrice());
         holder.quantityTextView.setText(String.valueOf(pizza.getQuantity()));
 
         holder.plusImageView.setOnClickListener(v -> {
-            int adapterPosition = holder.getAdapterPosition();
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                pizzaClickListener.onPlusClick(adapterPosition);
-            }
+            pizzaClickListener.onPlusClick(position);
         });
 
         holder.minusImageView.setOnClickListener(v -> {
-            int adapterPosition = holder.getAdapterPosition();
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                pizzaClickListener.onMinusClick(adapterPosition);
-            }
+            pizzaClickListener.onMinusClick(position);
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            pizzaClickListener.onItemClick(position);
         });
     }
 
@@ -79,4 +87,3 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         }
     }
 }
-

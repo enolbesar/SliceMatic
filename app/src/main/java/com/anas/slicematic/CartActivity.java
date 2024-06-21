@@ -48,7 +48,7 @@ public class CartActivity extends AppCompatActivity {
         }
 
         selectedPizzasTextView.setText(pizzasText.toString());
-        totalTextView.setText(String.format("Total: PKR %.2f", total) + "\nFree Delivery\nTax Inclusive Price (17% GST)");
+        totalTextView.setText(String.format("Total: Rp %.2f", total) + "\nFree Delivery\nTax Inclusive Price (11% PPN)");
 
         confirmOrderButton.setOnClickListener(v -> {
             String name = nameEditText.getText().toString();
